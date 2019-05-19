@@ -1,5 +1,5 @@
 package br.com.im.lojavirtualspring.model;
 
-public enum StatusPedido {
+public enum StatusAndamento {
 	PENDENTE, PROCESSADO, CANCELADO
 }
