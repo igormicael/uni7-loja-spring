@@ -28,4 +28,8 @@ public @Data class Item {
 	@JoinColumn(name="produto_id", nullable = false)
 	private Produto produto;
 	
+	@ManyToOne
+	@JoinColumn(name="estoque_id", nullable = false)
+	private Estoque estoque;
+	
 }

@@ -2,7 +2,9 @@ package br.com.im.lojavirtualspring.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +23,7 @@ public @Data class Estoque {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estoque_seq")
 	private Long id;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pedido", fetch = FetchType.LAZY)
 	private List<Item> itens;
 
 }
