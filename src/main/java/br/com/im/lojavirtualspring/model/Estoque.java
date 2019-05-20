@@ -12,11 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 @Entity
 @Table(name="estoque")
-public @Data class Estoque {
+public class Estoque {
 	
 	@Id
 	@SequenceGenerator(name = "estoque_seq", sequenceName = "estoque_seq", initialValue = 1, allocationSize = 1)
@@ -25,5 +23,31 @@ public @Data class Estoque {
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pedido", fetch = FetchType.LAZY)
 	private List<Item> itens;
+	
+	public Estoque() {
+		super();
+	}
+
+	public Estoque(Long id, List<Item> itens) {
+		super();
+		this.id = id;
+		this.itens = itens;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<Item> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<Item> itens) {
+		this.itens = itens;
+	}
 
 }

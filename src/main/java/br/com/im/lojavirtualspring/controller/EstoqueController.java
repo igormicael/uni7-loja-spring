@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,15 +22,15 @@ public class EstoqueController {
 
 	@Autowired
 	private EstoqueService service;
+	
+	@GetMapping()
+	public List<Estoque> findAll() {
+		return service.findAll();
+	}
 
 	@GetMapping("/{id}")
 	public Estoque findById(@PathParam("id") Long id) {
 		return service.findById(id);
-	}
-
-	@GetMapping("/findall")
-	public List<Estoque> findAll() {
-		return service.findAll();
 	}
 
 	@DeleteMapping("/{id}")
@@ -38,12 +39,12 @@ public class EstoqueController {
 	}
 
 	@PostMapping
-	public void save(Estoque estoque) {
+	public void save(@RequestBody Estoque estoque) {
 		service.save(estoque);
 	}
 
 	@PutMapping
-	public void update(Estoque estoque) {
+	public void update(@RequestBody Estoque estoque) {
 		service.update(estoque);
 	}
 

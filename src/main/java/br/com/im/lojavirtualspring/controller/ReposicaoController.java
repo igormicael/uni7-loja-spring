@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,15 +22,15 @@ public class ReposicaoController {
 
 	@Autowired
 	private ReposicaoService service;
+	
+	@GetMapping()
+	public List<Reposicao> findAll() {
+		return service.findAll();
+	}
 
 	@GetMapping("/{id}")
 	public Reposicao findById(@PathParam("id") Long id) {
 		return service.findById(id);
-	}
-
-	@GetMapping("/findall")
-	public List<Reposicao> findAll() {
-		return service.findAll();
 	}
 
 	@DeleteMapping("/{id}")
@@ -38,12 +39,12 @@ public class ReposicaoController {
 	}
 
 	@PostMapping
-	public void save(Reposicao reposicao) {
+	public void save(@RequestBody Reposicao reposicao) {
 		service.save(reposicao);
 	}
 
 	@PutMapping
-	public void update(Reposicao reposicao) {
+	public void update(@RequestBody Reposicao reposicao) {
 		service.update(reposicao);
 	}
 

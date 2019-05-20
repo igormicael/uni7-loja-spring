@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,15 +22,15 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoService service;
+	
+	@GetMapping()
+	public List<Produto> findAll() {
+		return service.findAll();
+	}
 
 	@GetMapping("/{id}")
 	public Produto findById(@PathParam("id") Long id) {
 		return service.findById(id);
-	}
-
-	@GetMapping("/findall")
-	public List<Produto> findAll() {
-		return service.findAll();
 	}
 
 	@DeleteMapping("/{id}")
@@ -38,12 +39,12 @@ public class ProdutoController {
 	}
 
 	@PostMapping
-	public void save(Produto produto) {
+	public void save(@RequestBody Produto produto) {
 		service.save(produto);
 	}
 
 	@PutMapping
-	public void update(Produto produto) {
+	public void update(@RequestBody Produto produto) {
 		service.update(produto);
 	}
 

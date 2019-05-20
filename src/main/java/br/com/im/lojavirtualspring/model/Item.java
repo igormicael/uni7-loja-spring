@@ -9,11 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 @Entity
 @Table(name = "item")
-public @Data class Item {
+public class Item {
 
 	@Id
 	@SequenceGenerator(name = "item_seq", sequenceName = "item_seq", initialValue = 1, allocationSize = 1)
@@ -31,5 +29,48 @@ public @Data class Item {
 	@ManyToOne
 	@JoinColumn(name="estoque_id", nullable = false)
 	private Estoque estoque;
-	
+
+	public Item() {
+		super();
+	}
+
+	public Item(Long id, Pedido pedido, Produto produto, Estoque estoque) {
+		super();
+		this.id = id;
+		this.pedido = pedido;
+		this.produto = produto;
+		this.estoque = estoque;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public Estoque getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
+	}
 }

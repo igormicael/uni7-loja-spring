@@ -16,11 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 @Entity
 @Table(name="pedido")
-public @Data class Pedido {
+public class Pedido {
 	
 	@Id
 	@SequenceGenerator(name = "pedido_seq", sequenceName = "pedido_seq", initialValue = 1, allocationSize = 1)
@@ -36,5 +34,50 @@ public @Data class Pedido {
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pedido", fetch = FetchType.LAZY)
 	private List<Item> itens;
+	
+	public Pedido() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Pedido(Long id, StatusAndamento status, Cliente cliente, List<Item> itens) {
+		super();
+		this.id = id;
+		this.status = status;
+		this.cliente = cliente;
+		this.itens = itens;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public StatusAndamento getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusAndamento status) {
+		this.status = status;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<Item> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<Item> itens) {
+		this.itens = itens;
+	}
 	
 }
