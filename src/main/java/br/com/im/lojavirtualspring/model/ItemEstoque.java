@@ -1,5 +1,7 @@
 package br.com.im.lojavirtualspring.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -14,51 +16,48 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "item")
-public class Item {
+@Table(name = "item_estoque")
+public class ItemEstoque implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6106371944829233848L;
 
 	@Id
-	@SequenceGenerator(name = "item_seq", sequenceName = "item_seq", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_seq")
+	@SequenceGenerator(name = "item_estoque_seq", sequenceName = "item_estoque_seq", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_estoque_seq")
 	private Long id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="produto_id", nullable = false , foreignKey=@ForeignKey(name="produto_id"))
+	@JoinColumn(name = "produto_id", nullable = false , foreignKey=@ForeignKey(name="produto_id"))
 	private Produto produto;
-	
+
 	@ManyToOne
-	@JoinColumn(name="pedido_id", nullable = false , foreignKey=@ForeignKey(name="pedido_id"))
+	@JoinColumn(name = "estoque_id", nullable = false, foreignKey=@ForeignKey(name="estoque_id"))
 	@JsonBackReference
-	private Pedido pedido;
-	
+	private Estoque estoque;
+
 	@Column
 	private Long quantidade;
 
-	public Item() {
-		super();
+	public ItemEstoque() {
 	}
 
-	public Item(Long id, Pedido pedido, Produto produto) {
+	public ItemEstoque(Long id, Produto produto, Estoque estoque, Long quantidade) {
 		super();
 		this.id = id;
-		this.pedido = pedido;
 		this.produto = produto;
+		this.estoque = estoque;
+		this.quantidade = quantidade;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
 	}
 
 	public Produto getProduto() {
@@ -76,5 +75,13 @@ public class Item {
 	public void setQuantidade(Long quantidade) {
 		this.quantidade = quantidade;
 	}
-	
+
+	public Estoque getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
+	}
+
 }

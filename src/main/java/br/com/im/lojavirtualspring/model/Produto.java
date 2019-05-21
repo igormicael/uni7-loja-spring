@@ -1,5 +1,7 @@
 package br.com.im.lojavirtualspring.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +12,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="produto")
-public class Produto {
+public class Produto implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5365498877445728734L;
+
 	@Id
 	@SequenceGenerator(name = "produto_seq", sequenceName = "produto_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_seq")

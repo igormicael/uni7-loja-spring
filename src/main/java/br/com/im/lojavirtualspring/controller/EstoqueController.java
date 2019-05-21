@@ -2,11 +2,10 @@ package br.com.im.lojavirtualspring.controller;
 
 import java.util.List;
 
-import javax.ws.rs.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +16,7 @@ import br.com.im.lojavirtualspring.model.Estoque;
 import br.com.im.lojavirtualspring.service.EstoqueService;
 
 @RestController
-@RequestMapping("/estoques")
+@RequestMapping("/estoque")
 public class EstoqueController {
 
 	@Autowired
@@ -29,12 +28,12 @@ public class EstoqueController {
 	}
 
 	@GetMapping("/{id}")
-	public Estoque findById(@PathParam("id") Long id) {
+	public Estoque findById(@PathVariable("id") Long id) {
 		return service.findById(id);
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteById(@PathParam("id") Long id) {
+	public void deleteById(@PathVariable("id") Long id) {
 		service.deleteById(id);
 	}
 

@@ -6,7 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="pedido")
@@ -29,15 +32,16 @@ public class Pedido {
 	private StatusAndamento status;
 	
 	@ManyToOne
-	@JoinColumn(name="cliente_id")
+	@JoinColumn(name="cliente_id", nullable = false, foreignKey=@ForeignKey(name="cliente_id"))
+	@JsonBackReference
 	private Cliente cliente;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pedido", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<Item> itens;
 	
 	public Pedido() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Pedido(Long id, StatusAndamento status, Cliente cliente, List<Item> itens) {
