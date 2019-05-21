@@ -23,11 +23,11 @@ public class Item {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name="produto_id", nullable = false , foreignKey=@ForeignKey(name="produto_id"))
+	@JoinColumn(name="produto_id", nullable = false , foreignKey=@ForeignKey(name="item_produto_id"))
 	private Produto produto;
 	
 	@ManyToOne
-	@JoinColumn(name="pedido_id", nullable = false , foreignKey=@ForeignKey(name="pedido_id"))
+	@JoinColumn(name="pedido_id", nullable = false , foreignKey=@ForeignKey(name="item_pedido_id"))
 	@JsonBackReference
 	private Pedido pedido;
 	

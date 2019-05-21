@@ -30,11 +30,11 @@ public class ItemEstoque implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "produto_id", nullable = false , foreignKey=@ForeignKey(name="produto_id"))
+	@JoinColumn(name = "produto_id", nullable = false , foreignKey=@ForeignKey(name="ie_produto_id"))
 	private Produto produto;
 
 	@ManyToOne
-	@JoinColumn(name = "estoque_id", nullable = false, foreignKey=@ForeignKey(name="estoque_id"))
+	@JoinColumn(name = "estoque_id", nullable = false, foreignKey=@ForeignKey(name="ie_estoque_id"))
 	@JsonBackReference
 	private Estoque estoque;
 

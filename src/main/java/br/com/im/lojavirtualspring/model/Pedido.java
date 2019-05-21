@@ -32,7 +32,7 @@ public class Pedido {
 	private StatusAndamento status;
 	
 	@ManyToOne
-	@JoinColumn(name="cliente_id", nullable = false, foreignKey=@ForeignKey(name="cliente_id"))
+	@JoinColumn(name="cliente_id", nullable = false, foreignKey=@ForeignKey(name="pedido_cliente_id"))
 	@JsonBackReference
 	private Cliente cliente;
 	
