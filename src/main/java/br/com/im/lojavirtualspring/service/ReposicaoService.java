@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.im.lojavirtualspring.model.Produto;
 import br.com.im.lojavirtualspring.model.Reposicao;
 import br.com.im.lojavirtualspring.repository.ReposicaoRepository;
 
@@ -36,6 +37,11 @@ public class ReposicaoService {
 
 	public void deleteAll() {
 		this.repository.deleteAll();
+	}
+
+	public void solicitarReposicao(Produto produto, Long quantidadeReposicao) {
+		this.repository.solicitarReposicao(produto, quantidadeReposicao);
+		
 	}
 
 }

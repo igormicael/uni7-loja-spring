@@ -29,7 +29,7 @@ public class EstoqueController {
 
 	@GetMapping("/{id}")
 	public Estoque findById(@PathVariable("id") Long id) {
-		return service.findById(id);
+		return service.findById(id).orElse(null);
 	}
 
 	@DeleteMapping("/{id}")

@@ -29,7 +29,7 @@ public class ProdutoController {
 
 	@GetMapping("/{id}")
 	public Produto findById(@PathVariable("id") Long id) {
-		return service.findById(id);
+		return service.findById(id).orElse(null);
 	}
 
 	@DeleteMapping("/{id}")

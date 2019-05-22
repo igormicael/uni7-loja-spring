@@ -1,6 +1,7 @@
 package br.com.im.lojavirtualspring.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,8 @@ public class EstoqueService {
 	@Autowired
 	private EstoqueRepository repository;
 	
-	public Estoque findById(Long id) {
-		return this.repository.findById(id).get();
+	public Optional<Estoque> findById(Long id) {
+		return this.repository.findById(id);
 	}
 
 	public List<Estoque> findAll() {

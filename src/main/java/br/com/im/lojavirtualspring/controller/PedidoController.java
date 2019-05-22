@@ -43,6 +43,11 @@ public class PedidoController {
 	public ResponseEntity<Pedido> save(@RequestBody Pedido pedido) {
 		return new ResponseEntity<Pedido>(service.save(pedido), HttpStatus.OK);
 	}
+	
+	@PutMapping
+	public void update(@RequestBody Pedido pedido) {
+		service.update(pedido);
+	}
 
 	@PostMapping("/{id}/adicionar-produto/{idProduto}/quantidade/{quantidade}")
 	public ResponseEntity<?> adicionarProduto(@PathVariable("id") Long id, @PathVariable("idProduto") Long idProduto,
@@ -71,10 +76,18 @@ public class PedidoController {
 
 		return new ResponseEntity<Pedido>(removerProduto, HttpStatus.OK);
 	}
-
-	@PutMapping
-	public void update(@RequestBody Pedido pedido) {
-		service.update(pedido);
+	
+	@PostMapping("/{id}/finalizar")
+	public ResponseEntity<?> finalizarPedido(@PathVariable("id") Long id ) {
+		Pedido pedido = null;
+		
+		try {
+			pedido = service.finalizarPedido(id);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return new ResponseEntity<Pedido>(pedido, HttpStatus.OK);
 	}
 
 }
