@@ -34,7 +34,7 @@ public class PedidoService {
 	}
 
 	public List<Pedido> findAll() {
-		return this.repository.findAll();
+		return (List<Pedido>) this.repository.findAll();
 	}
 
 	public void deleteById(Long id) {

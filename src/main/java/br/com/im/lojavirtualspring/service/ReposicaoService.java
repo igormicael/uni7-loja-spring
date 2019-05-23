@@ -20,7 +20,7 @@ public class ReposicaoService {
 	}
 
 	public List<Reposicao> findAll() {
-		return this.repository.findAll();
+		return (List<Reposicao>) this.repository.findAll();
 	}
 
 	public void deleteById(Long id) {
@@ -39,9 +39,9 @@ public class ReposicaoService {
 		this.repository.deleteAll();
 	}
 
+	//TODO: criar logica
 	public void solicitarReposicao(Produto produto, Long quantidadeReposicao) {
-		this.repository.solicitarReposicao(produto, quantidadeReposicao);
-		
+		//this.repository.solicitarReposicao(produto, quantidadeReposicao);
 	}
 
 }

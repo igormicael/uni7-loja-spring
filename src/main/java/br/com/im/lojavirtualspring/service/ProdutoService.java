@@ -20,7 +20,7 @@ public class ProdutoService {
 	}
 
 	public List<Produto> findAll() {
-		return this.repository.findAll();
+		return (List<Produto>) this.repository.findAll();
 	}
 
 	public void deleteById(Long id) {

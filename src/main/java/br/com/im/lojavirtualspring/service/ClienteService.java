@@ -19,7 +19,7 @@ public class ClienteService {
 	}
 
 	public List<Cliente> findAll() {
-		return this.repository.findAll();
+		return (List<Cliente>) this.repository.findAll();
 	}
 
 	public void deleteById(Long id) {

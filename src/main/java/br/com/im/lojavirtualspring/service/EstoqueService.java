@@ -20,7 +20,7 @@ public class EstoqueService {
 	}
 
 	public List<Estoque> findAll() {
-		return this.repository.findAll();
+		return (List<Estoque>) this.repository.findAll();
 	}
 
 	public void deleteById(Long id) {
