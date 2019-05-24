@@ -192,8 +192,11 @@ public class PedidoService {
 		if(pedido == null)
 			throw new Exception("Pedido não encontrado no sistema");
 		
+		if(!pedido.getStatus().equals(StatusAndamento.PROCESSADO)) {
+			pedido.setStatus(StatusAndamento.CANCELADO);
+		}
 		
-		return null;
+		return repository.save(pedido);
 	}
 
 }

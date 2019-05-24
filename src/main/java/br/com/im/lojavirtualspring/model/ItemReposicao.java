@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "item_reposicao")
 public class ItemReposicao implements Serializable {
@@ -33,6 +35,7 @@ public class ItemReposicao implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "reposicao_id", nullable = false , foreignKey=@ForeignKey(name="ir_reposicao_id"))
+	@JsonBackReference
 	private Reposicao reposicao;
 	
 	@Column

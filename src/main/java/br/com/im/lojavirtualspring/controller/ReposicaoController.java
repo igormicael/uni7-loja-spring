@@ -16,7 +16,7 @@ import br.com.im.lojavirtualspring.model.Reposicao;
 import br.com.im.lojavirtualspring.service.ReposicaoService;
 
 @RestController
-@RequestMapping("/reposicaos")
+@RequestMapping("/reposicoes")
 public class ReposicaoController {
 
 	@Autowired

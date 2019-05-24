@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="reposicao")
 public class Reposicao {
@@ -25,6 +27,7 @@ public class Reposicao {
 	private Long id;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "reposicao", fetch = FetchType.LAZY)
+	@JsonManagedReference
 	private List<ItemReposicao> itens;
 	
 	@Enumerated(EnumType.STRING)
