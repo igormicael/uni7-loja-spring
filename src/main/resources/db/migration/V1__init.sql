@@ -8,7 +8,7 @@ create sequence reposical_seq start 1 increment 1;
 create sequence item_reposicao_seq start 1 increment 1;
 
 create table cliente (id int8 not null, nome varchar(255), primary key (id));
-create table estoque (id int8 not null, primary key (id));
+create table estoque (id int8 not null, ativo boolean, primary key (id));
 create table item (id int8 not null, quantidade int8, pedido_id int8 not null, produto_id int8 not null, primary key (id));
 create table item_estoque (id int8 not null, quantidade int8, estoque_id int8 not null, produto_id int8 not null, primary key (id));
 create table pedido (id int8 not null, status varchar(255), cliente_id int8 not null, primary key (id));

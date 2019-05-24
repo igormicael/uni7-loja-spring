@@ -83,5 +83,13 @@ public class ItemEstoque implements Serializable {
 	public void setEstoque(Estoque estoque) {
 		this.estoque = estoque;
 	}
+	
+	public void adicionarQuantidade(Long quantidade) {
+		this.quantidade += quantidade;
+	}
+	
+	public void diminuirQuantidade(Long quantidade) {
+		this.quantidade -= quantidade;
+	}
 
 }

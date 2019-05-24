@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,9 @@ public class Estoque implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estoque_seq")
 	private Long id;
 	
+	@Column
+	private Boolean ativo;
+	
 	@OneToMany(mappedBy = "estoque", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private List<ItemEstoque> itens;
@@ -47,6 +51,14 @@ public class Estoque implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	public List<ItemEstoque> getItens() {
