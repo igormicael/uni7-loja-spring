@@ -107,5 +107,13 @@ public class Item {
 			return false;
 		return true;
 	}
+
+	public void adicionarQuantidade(Long quantidade) {
+		this.quantidade += quantidade;
+	}
+	
+	public void diminuirQuantidade(Long quantidade) {
+		this.quantidade -= quantidade;
+	}
 	
 }

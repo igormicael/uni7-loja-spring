@@ -13,6 +13,7 @@ import br.com.im.lojavirtualspring.model.Pedido;
 import br.com.im.lojavirtualspring.model.Produto;
 import br.com.im.lojavirtualspring.model.StatusAndamento;
 import br.com.im.lojavirtualspring.repository.PedidoRepository;
+import br.com.im.lojavirtualspring.utils.Utils;
 
 @Service
 public class PedidoService {
@@ -42,6 +43,7 @@ public class PedidoService {
 	}
 
 	public Pedido save(Pedido pedido) {
+		pedido.setStatus(StatusAndamento.PENDENTE);
 		return this.repository.save(pedido);
 	}
 
@@ -60,6 +62,11 @@ public class PedidoService {
 		if(pedido == null)
 			throw new Exception("Pedido não encontrado no sistema");
 		
+		if(pedido.getStatus() != null && 
+				pedido.getStatus().equals(StatusAndamento.PROCESSADO)) {
+			throw new Exception("Não é possivel alterar um pedido já processado.");
+		}
+		
 		if(produto == null)
 			throw new Exception("Produto não encontrado no sistema");
 		
@@ -70,7 +77,7 @@ public class PedidoService {
 
 		pedido.adicionarItem(item);
 
-		return save(pedido);
+		return repository.save(pedido);
 	}
 
 	public Pedido removerProduto(Long id, Long idProduto, Long quantidade) throws Exception {
@@ -79,6 +86,11 @@ public class PedidoService {
 		
 		if(pedido == null)
 			throw new Exception("Pedido não encontrado no sistema");
+		
+		if(pedido.getStatus() != null && 
+				pedido.getStatus().equals(StatusAndamento.PROCESSADO)) {
+			throw new Exception("Não é possivel alterar um pedido já processado.");
+		}
 		
 		if(produto == null)
 			throw new Exception("Produto não encontrado no sistema");
@@ -90,7 +102,7 @@ public class PedidoService {
 
 		pedido.removerItem(item);
 
-		return save(pedido);
+		return repository.save(pedido);
 	}
 
 	public Pedido finalizarPedido(Long id) throws Exception {
@@ -153,14 +165,16 @@ public class PedidoService {
 				
 				reposicaoService.solicitarReposicao(item.getProduto(), quantidadeReposicao);
 			}
+		}else {
+			pedido.setStatus(StatusAndamento.PROCESSADO);
 		}
 		
-		return null;
+		return repository.save(pedido);
 	}
 
-	//TODO: implementar logica de verdade
 	private Long calcularQuantidadeReposicao(Item item) {
-		return 100L;
+		Long fRep = Utils.getRandomNumberInRange(1, 3);
+		return item.getQuantidade() * fRep;
 	}
 
 	private ItemEstoque verificaExistenciaEstoque(List<ItemEstoque> itensEstoque, Produto produtoPedido) {
@@ -169,6 +183,15 @@ public class PedidoService {
 				return itemEstoque;
 			}
 		}
+		return null;
+	}
+
+	public Pedido cancelarPedido(Long id) throws Exception {
+		Pedido pedido = repository.findById(id).orElse(null);
+		
+		if(pedido == null)
+			throw new Exception("Pedido não encontrado no sistema");
+		
 		
 		return null;
 	}

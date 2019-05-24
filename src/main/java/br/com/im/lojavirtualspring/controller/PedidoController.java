@@ -89,5 +89,18 @@ public class PedidoController {
 		
 		return new ResponseEntity<Pedido>(pedido, HttpStatus.OK);
 	}
+	
+	@PostMapping("/{id}/cancelar")
+	public ResponseEntity<?> cancelarPedido(@PathVariable("id") Long id ) {
+		Pedido pedido = null;
+		
+		try {
+			pedido = service.cancelarPedido(id);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return new ResponseEntity<Pedido>(pedido, HttpStatus.OK);
+	}
 
 }

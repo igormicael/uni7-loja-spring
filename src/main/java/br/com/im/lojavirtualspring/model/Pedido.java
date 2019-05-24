@@ -92,13 +92,26 @@ public class Pedido {
 		
 		if(!itens.contains(item)) {
 			itens.add(item);
+		}else {
+			
+			Item itemExisteNoPedido = itens.get(itens.indexOf(item));
+			itemExisteNoPedido.adicionarQuantidade(item.getQuantidade());
+			
 		}
 	}
 	
 	public void removerItem(Item item) {
 		if(itens != null) {
 			if(itens.contains(item)) {
-				itens.remove(item);
+				
+				Item itemExistenteNoPedido = itens.get(itens.indexOf(item));
+				
+				if(itemExistenteNoPedido.getQuantidade() - item.getQuantidade() <= 0) {
+					itens.remove(item);
+				}else {
+					itemExistenteNoPedido.diminuirQuantidade(item.getQuantidade());
+				}
+				
 			}
 		}
 	}

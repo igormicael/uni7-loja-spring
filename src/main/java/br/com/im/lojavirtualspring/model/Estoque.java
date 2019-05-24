@@ -65,7 +65,6 @@ public class Estoque implements Serializable {
 		if(!itens.contains(item)) {
 			itens.add(item);
 		}
-		
 	}
 
 }

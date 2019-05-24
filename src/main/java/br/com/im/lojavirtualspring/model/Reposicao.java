@@ -1,5 +1,6 @@
 package br.com.im.lojavirtualspring.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,19 +24,17 @@ public class Reposicao {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reposicao_seq")
 	private Long id;
 	
-	//TODO: estruturar melhor a ligação de reposicao com item
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pedido", fetch = FetchType.LAZY)
-	private List<Item> itens;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "reposicao", fetch = FetchType.LAZY)
+	private List<ItemReposicao> itens;
 	
 	@Enumerated(EnumType.STRING)
 	private StatusAndamento status;
 
 	public Reposicao() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Reposicao(Long id, List<Item> itens, StatusAndamento status) {
+	public Reposicao(Long id, List<ItemReposicao> itens, StatusAndamento status) {
 		super();
 		this.id = id;
 		this.itens = itens;
@@ -50,11 +49,11 @@ public class Reposicao {
 		this.id = id;
 	}
 
-	public List<Item> getItens() {
+	public List<ItemReposicao> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<Item> itens) {
+	public void setItens(List<ItemReposicao> itens) {
 		this.itens = itens;
 	}
 
@@ -64,6 +63,17 @@ public class Reposicao {
 
 	public void setStatus(StatusAndamento status) {
 		this.status = status;
+	}
+
+	public void addItem(ItemReposicao item) {
+		if(itens == null) {
+			itens = new ArrayList<>();
+		}
+		
+		if(!itens.contains(item)) {
+			itens.add(item);
+		}
+		
 	}
 	
 }

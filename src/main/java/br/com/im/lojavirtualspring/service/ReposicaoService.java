@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.im.lojavirtualspring.model.ItemReposicao;
 import br.com.im.lojavirtualspring.model.Produto;
 import br.com.im.lojavirtualspring.model.Reposicao;
+import br.com.im.lojavirtualspring.model.StatusAndamento;
 import br.com.im.lojavirtualspring.repository.ReposicaoRepository;
 
 @Service
@@ -39,9 +41,19 @@ public class ReposicaoService {
 		this.repository.deleteAll();
 	}
 
-	//TODO: criar logica
 	public void solicitarReposicao(Produto produto, Long quantidadeReposicao) {
-		//this.repository.solicitarReposicao(produto, quantidadeReposicao);
+		
+		Reposicao reposicao = new Reposicao();
+		reposicao.setStatus(StatusAndamento.PENDENTE);
+		
+		ItemReposicao item = new ItemReposicao();
+		item.setReposicao(reposicao);
+		item.setProduto(produto);
+		item.setQuantidade(quantidadeReposicao);
+		
+		reposicao.addItem(item);
+		
+		this.repository.save(reposicao);
 	}
 
 }
