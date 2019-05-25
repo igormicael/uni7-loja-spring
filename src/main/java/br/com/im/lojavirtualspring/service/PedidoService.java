@@ -106,7 +106,7 @@ public class PedidoService {
 	}
 
 	public Pedido finalizarPedido(Long id) throws Exception {
-		Estoque estoque = estoqueService.findAtivo().orElse(null);
+		Estoque estoque = estoqueService.findAtivo();
 		
 		Pedido pedido = repository.findById(id).orElse(null);
 		

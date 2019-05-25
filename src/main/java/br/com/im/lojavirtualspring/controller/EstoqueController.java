@@ -30,8 +30,16 @@ public class EstoqueController {
 	}
 
 	@GetMapping("/")
-	public Estoque findAtivo() {
-		return service.findAtivo().orElse(null);
+	public ResponseEntity<?> findAtivo() {
+		Estoque estoque = null;
+
+		try {
+			estoque = service.findAtivo();
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<Estoque>(estoque, HttpStatus.OK);
 	}
 
 	@GetMapping("/produto/{id}")
@@ -48,9 +56,10 @@ public class EstoqueController {
 		return new ResponseEntity<Estoque>(estoque, HttpStatus.OK);
 
 	}
-	
+
 	@PostMapping("/produto/{id}/aumentar/{quantidade}")
-	public ResponseEntity<?> adicionarProduto(@PathVariable("id") Long idProduto, @PathVariable("quantidade") Long quantidade) {
+	public ResponseEntity<?> adicionarProduto(@PathVariable("id") Long idProduto,
+			@PathVariable("quantidade") Long quantidade) {
 		Estoque estoque = null;
 
 		try {
@@ -61,17 +70,18 @@ public class EstoqueController {
 
 		return new ResponseEntity<Estoque>(estoque, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/produto/{id}/diminuir/{quantidade}")
-	public ResponseEntity<?> diminuirProduto(@PathVariable("id") Long idProduto, @PathVariable("quantidade") Long quantidade) {
+	public ResponseEntity<?> diminuirProduto(@PathVariable("id") Long idProduto,
+			@PathVariable("quantidade") Long quantidade) {
 		Estoque estoque = null;
-		
+
 		try {
 			estoque = service.diminuirProduto(idProduto, quantidade);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		return new ResponseEntity<Estoque>(estoque, HttpStatus.OK);
 	}
 

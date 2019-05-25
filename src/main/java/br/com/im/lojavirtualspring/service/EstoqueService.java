@@ -9,19 +9,19 @@ import org.springframework.stereotype.Service;
 
 import br.com.im.lojavirtualspring.model.Estoque;
 import br.com.im.lojavirtualspring.model.ItemEstoque;
+import br.com.im.lojavirtualspring.model.ItemReposicao;
 import br.com.im.lojavirtualspring.model.Produto;
 import br.com.im.lojavirtualspring.repository.EstoqueRepository;
 
 @Service
 public class EstoqueService {
-	
+
 	@Autowired
 	private EstoqueRepository repository;
-	
+
 	@Autowired
 	private ProdutoService produtoService;
-	
-	
+
 	public Optional<Estoque> findById(Long id) {
 		return this.repository.findById(id);
 	}
@@ -46,63 +46,59 @@ public class EstoqueService {
 		this.repository.deleteAll();
 	}
 
-	public Optional<Estoque> findAtivo() {
-		return repository.findByAtivo(Boolean.TRUE);
+	public Estoque findAtivo() throws Exception {
+		Estoque estoque = repository.findByAtivo(Boolean.TRUE).orElse(null);
+
+		if (estoque == null) {
+			throw new Exception("Não existe estoque ativo no momento");
+		}
+
+		return estoque;
 	}
 
 	public Estoque findByProdutoId(Long idProduto) throws Exception {
-		Estoque estoque = recuperarEstoqueAtivo();
-		
+		Estoque estoque = findAtivo();
+
 		ItemEstoque item = recuperarItemPeloProduto(estoque, idProduto);
-		
+
 		estoque.setItens(new ArrayList<>());
 		estoque.addItemEstoque(item);
-		
+
 		return estoque;
 	}
 
 	public Estoque adicionarProduto(Long idProduto, Long quantidade) throws Exception {
-		Estoque estoque = recuperarEstoqueAtivo();
-		
+		Estoque estoque = findAtivo();
+
 		ItemEstoque item = recuperarItemPeloProduto(estoque, idProduto);
-		
+
 		item.adicionarQuantidade(quantidade);
-		
+
 		return repository.save(estoque);
+
 	}
 
 	public Estoque diminuirProduto(Long idProduto, Long quantidade) throws Exception {
-		Estoque estoque = recuperarEstoqueAtivo();
-		
+		Estoque estoque = findAtivo();
+
 		ItemEstoque item = recuperarItemPeloProduto(estoque, idProduto);
-		
+
 		item.diminuirQuantidade(quantidade);
-		
+
 		return repository.save(estoque);
-	}
-	
-	
-	private Estoque recuperarEstoqueAtivo() throws Exception {
-		Estoque estoque = repository.findByAtivo(Boolean.TRUE).orElse(null);
-		
-		if(estoque == null) {
-			throw new Exception("Não existe estoque ativo no momento");
-		}
-		
-		return estoque;
 	}
 
 	private ItemEstoque recuperarItemPeloProduto(Estoque estoque, Long idProduto) throws Exception {
-		
+
 		Produto produto = produtoService.findById(idProduto).orElse(null);
-		
-		if(produto == null) {
+
+		if (produto == null) {
 			throw new Exception("Não existe produto com esse codigo");
 		}
-		
-		if(estoque.getItens() != null ) {
+
+		if (estoque.getItens() != null) {
 			for (ItemEstoque itemEstoque : estoque.getItens()) {
-				if(itemEstoque.getProduto().equals(produto)) {
+				if (itemEstoque.getProduto().equals(produto)) {
 					return itemEstoque;
 				}
 			}
@@ -110,4 +106,19 @@ public class EstoqueService {
 		return null;
 	}
 
+	public void reporEstoque(List<ItemReposicao> itens) throws Exception {
+
+		Estoque estoque = findAtivo();
+
+		if (itens != null && estoque.getItens() != null) {
+			for (ItemReposicao itemReposicao : itens) {
+				for (ItemEstoque itemEstoque : estoque.getItens()) {
+					if (itemReposicao.getProduto().equals(itemEstoque.getProduto())) {
+						itemEstoque.adicionarQuantidade(itemReposicao.getQuantidade());
+					}
+				}
+			}
+			repository.save(estoque);
+		}
+	}
 }

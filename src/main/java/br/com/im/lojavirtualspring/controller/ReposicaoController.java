@@ -3,7 +3,8 @@ package br.com.im.lojavirtualspring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,13 +29,49 @@ public class ReposicaoController {
 	}
 
 	@GetMapping("/{id}")
-	public Reposicao findById(@PathVariable("id") Long id) {
-		return service.findById(id);
+	public ResponseEntity<?> findById(@PathVariable("id") Long id) {
+		Reposicao reposicao = null;
+		
+		try {
+			reposicao = service.findById(id);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return new ResponseEntity<Reposicao>(reposicao, HttpStatus.OK);
+		
 	}
 
-	@DeleteMapping("/{id}")
-	public void deleteById(@PathVariable("id") Long id) {
-		service.deleteById(id);
+	@PostMapping("processar/{id}")
+	public ResponseEntity<?> cancelarReposicao(@PathVariable("id") Long id) {
+		{
+			Reposicao reposicao = null;
+			
+			try {
+				reposicao = service.cancelarReposicao(id);
+			} catch (Exception e) {
+				return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			return new ResponseEntity<Reposicao>(reposicao, HttpStatus.OK);
+			
+		}
+	}
+	
+	@PostMapping("processar/{id}")
+	public ResponseEntity<?> processarReposicao(@PathVariable("id") Long id) {
+		{
+			Reposicao reposicao = null;
+			
+			try {
+				reposicao = service.processarReposicao(id);
+			} catch (Exception e) {
+				return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			return new ResponseEntity<Reposicao>(reposicao, HttpStatus.OK);
+			
+		}
 	}
 
 	@PostMapping
