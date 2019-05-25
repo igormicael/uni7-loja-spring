@@ -29,7 +29,7 @@ public class EstoqueController {
 		return service.findAll();
 	}
 
-	@GetMapping("/")
+	@GetMapping()
 	public ResponseEntity<?> findAtivo() {
 		Estoque estoque = null;
 

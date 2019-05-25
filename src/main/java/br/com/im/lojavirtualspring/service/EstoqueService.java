@@ -115,6 +115,7 @@ public class EstoqueService {
 				for (ItemEstoque itemEstoque : estoque.getItens()) {
 					if (itemReposicao.getProduto().equals(itemEstoque.getProduto())) {
 						itemEstoque.adicionarQuantidade(itemReposicao.getQuantidade());
+						break;
 					}
 				}
 			}

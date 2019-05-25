@@ -77,7 +77,7 @@ public class PedidoController {
 		return new ResponseEntity<Pedido>(removerProduto, HttpStatus.OK);
 	}
 	
-	@PostMapping("/{id}/finalizar")
+	@PutMapping("/{id}/finalizar")
 	public ResponseEntity<?> finalizarPedido(@PathVariable("id") Long id ) {
 		Pedido pedido = null;
 		
@@ -90,7 +90,7 @@ public class PedidoController {
 		return new ResponseEntity<Pedido>(pedido, HttpStatus.OK);
 	}
 	
-	@PostMapping("/{id}/cancelar")
+	@PutMapping("/{id}/cancelar")
 	public ResponseEntity<?> cancelarPedido(@PathVariable("id") Long id ) {
 		Pedido pedido = null;
 		

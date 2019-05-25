@@ -42,7 +42,7 @@ public class ReposicaoController {
 		
 	}
 
-	@PostMapping("processar/{id}")
+	@PutMapping("{id}/cancelar")
 	public ResponseEntity<?> cancelarReposicao(@PathVariable("id") Long id) {
 		{
 			Reposicao reposicao = null;
@@ -58,7 +58,7 @@ public class ReposicaoController {
 		}
 	}
 	
-	@PostMapping("processar/{id}")
+	@PutMapping("{id}/processar")
 	public ResponseEntity<?> processarReposicao(@PathVariable("id") Long id) {
 		{
 			Reposicao reposicao = null;

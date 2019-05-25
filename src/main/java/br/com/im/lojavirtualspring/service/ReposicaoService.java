@@ -66,7 +66,7 @@ public class ReposicaoService {
 		Reposicao reposicao = findById(id);
 
 		if (reposicao.getStatus() != null && reposicao.getStatus().equals(StatusAndamento.PENDENTE))
-			reposicao.setStatus(StatusAndamento.PENDENTE);
+			reposicao.setStatus(StatusAndamento.CANCELADO);
 
 		return repository.save(reposicao);
 	}
