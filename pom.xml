@@ -11,8 +11,8 @@
 	</parent>
 	<groupId>br.com.im</groupId>
 	<artifactId>uni7-loja-spring</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>uni7-loja-spring</name>
+	<version>0.0.1</version>
+	<name>loja</name>
 	<description>Spring Boot</description>
 
 	<properties>

@@ -57,7 +57,7 @@ public class EstoqueController {
 
 	}
 
-	@PostMapping("/produto/{id}/aumentar/{quantidade}")
+	@PutMapping("/produto/{id}/aumentar/{quantidade}")
 	public ResponseEntity<?> adicionarProduto(@PathVariable("id") Long idProduto,
 			@PathVariable("quantidade") Long quantidade) {
 		Estoque estoque = null;
@@ -71,7 +71,7 @@ public class EstoqueController {
 		return new ResponseEntity<Estoque>(estoque, HttpStatus.OK);
 	}
 
-	@PostMapping("/produto/{id}/diminuir/{quantidade}")
+	@PutMapping("/produto/{id}/diminuir/{quantidade}")
 	public ResponseEntity<?> diminuirProduto(@PathVariable("id") Long idProduto,
 			@PathVariable("quantidade") Long quantidade) {
 		Estoque estoque = null;

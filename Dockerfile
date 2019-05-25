@@ -1,5 +1,5 @@
-FROM adoptopenjdk/openjdk11:alpine as build
-WORKDIR /workspace/loja
+FROM openjdk:11-slim as build
+WORKDIR /workspace/
 
 
 COPY mvnw .
@@ -7,8 +7,12 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN ./mvnw install -DskipTests
+RUN ./mvnw package -DskipTests
 
-FROM michelav/wildfly-alpine
+FROM openjdk:11-slim
 
-CMD ["/opt/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-c", "standalone-full.xml", "-bmanagement", "0.0.0.0"]
+ARG DEPENDENCY=/workspace
+
+COPY --from=build ${DEPENDENCY}/target/uni7-loja-spring-0.0.1.jar .
+
+ENTRYPOINT ["java","-jar","uni7-loja-spring-0.0.1.jar"]
