@@ -19,7 +19,7 @@ Projeto que visa construir aplicação Spring.
 docker build -t loja .
 ```
 ```sh
-docker run -p 9990:9990 -p 8080:8080 loja
+docker run -p 8080:8080 loja
 ```
 
 ### Urls
