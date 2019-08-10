@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name="cliente")
 public class Cliente {
@@ -21,13 +23,16 @@ public class Cliente {
 	@Id
 	@SequenceGenerator(name = "cliente_seq", sequenceName = "cliente_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_seq")
+	@ApiModelProperty(notes="Identificador único do cliente", required = true)
 	private Long id;
 	
 	@Column
+	@ApiModelProperty(notes="nome do cliente")
 	private String nome;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
+	@ApiModelProperty(notes="pedidos realizados pelo cliente")
 	private List<Pedido> pedidos;
 	
 	public Cliente() {
